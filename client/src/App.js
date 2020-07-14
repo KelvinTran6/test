@@ -82,12 +82,10 @@
 //   }
 // }
 
-export default App;
+// export default App;
 
 import React from 'react';
 import Row from './components/Row.js'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, makeStyles } from '@material-ui/core/';
-import './App.css';
 import * as $ from 'axios';
 
 
@@ -103,7 +101,7 @@ class App extends React.Component {
   clicked(){
 
     const data = {
-      title: "test title",
+      title: "12125125asd125",
       content: "testing content",
       url:"https://api.time.com/wp-content/uploads/2014/07/301386_full1.jpg?w=600&quality=85",
       description: "testing description"
@@ -137,7 +135,7 @@ class App extends React.Component {
   
   render(){
     return (
-      <div className="page">
+      <div className="page" onClick={this.clicked}>
         {this.state.books}
         Library Application
       </div>
