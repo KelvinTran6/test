@@ -106,6 +106,10 @@ class Row extends React.Component {
         this.setState({ likes: likeValue })
     }
 
+    componentDidMount(){
+        console.log("mounted")
+        this.setState({likes:this.props.info.likes})
+    }
 
 
     render() {
