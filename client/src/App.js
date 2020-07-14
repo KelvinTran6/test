@@ -88,7 +88,7 @@ import React from 'react';
 import Row from './components/Row.js'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, makeStyles } from '@material-ui/core/';
 import './App.css';
-import axios from 'axios'
+import * as $ from 'axios';
 
 
 class App extends React.Component {
