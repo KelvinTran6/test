@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ErrorMessage() {
+export default function WaitingMessage() {
   const classes = useStyles();
 
   return (
@@ -26,11 +25,7 @@ export default function ErrorMessage() {
       <CssBaseline />
       <Container component="main" className={classes.main} maxWidth="sm">
         <Typography variant="h2" component="h1" gutterBottom>
-           Invalid search
-        </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
-          {'Could not find the book you are searching for '}
-          {'please try again or go back to the home page to browse for books'}
+           Searching...
         </Typography>
       </Container>
     </div>

@@ -3,6 +3,7 @@ import Axios from "axios";
 import Row from './Row'
 import Typography from '@material-ui/core/Typography';
 import ErrorMessage from './ErrorMessage'
+import WaitingMessage from './WaitingMessage'
 import './FullView.css'
 import { Link, browserHistory } from "react-router-dom";
 
@@ -12,8 +13,8 @@ class FullView extends React.Component {
 
         this.state = {
             data: "",
-            found: false,
-            book:[],
+            found: 1,
+            book: [],
         }
     }
 
@@ -30,16 +31,16 @@ class FullView extends React.Component {
 
                 this.setState({ data: res.data })
                 let foundBook = []
-                const currentBook = <Row info={res.data}/>
+                const currentBook = <Row info={res.data} />
                 foundBook.push(currentBook)
-                this.setState({book:foundBook})
+                this.setState({ book: foundBook })
 
-                if(res.data != null){
-                    this.setState({ found: true })
+                if (res.data != null) {
+                    this.setState({ found: 2 })
                 }
             })
             .catch(function (err) {
-                currentComponent.setState({ found: false })
+                currentComponent.setState({ found: 3 })
             });
     }
 
@@ -54,17 +55,22 @@ class FullView extends React.Component {
 
     render() {
         console.log(this.props.match.params.title)
-        if (this.state.found) {
+        if (this.state.found == 2) {
             return (
-                <div> 
+                <div>
                     {this.state.book}
                 </div>
             )
+        } else if (this.state.found == 1) {
+            return (
+                <WaitingMessage/>
+            )
+
         } else {
             return (
-                    <Typography component="h1" variant="h4">
-                        <ErrorMessage/>
-                    </Typography>
+                <Typography component="h1" variant="h4">
+                    <ErrorMessage />
+                </Typography>
 
             )
 
