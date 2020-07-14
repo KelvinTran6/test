@@ -73,6 +73,8 @@ class Row extends React.Component {
                 this.setState({ state: this.state });
                 console.log("deleted")
             })
+
+            window.location.reload(false);
     }
 
 

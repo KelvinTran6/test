@@ -107,7 +107,7 @@ class Create extends React.Component {
                 <Container component="main">
                     <CssBaseline />
                     <div className={classes.paper}>
-                        <Typography component="h1" variant="h5">
+                        <Typography component="h1" variant="h4">
                             Enter the book information below
             </Typography>
                         <form className={classes.form} noValidate>
