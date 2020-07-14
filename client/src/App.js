@@ -114,9 +114,6 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    this.clicked()
-    let setBooks
-
     $.get('/api/books')
     .then(res => {
       const books = res.data
@@ -134,9 +131,8 @@ class App extends React.Component {
   
   render(){
     return (
-      <div className="page" onClick={this.clicked}>
+      <div className="page">
         {this.state.books}
-        Library Application
       </div>
     );
 

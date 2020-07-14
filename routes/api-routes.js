@@ -69,6 +69,17 @@ module.exports = function (app) {
       .catch(err => res.status(400).json('Error: ' + err));
   });
 
+  app.delete('/api/book/:title', function (req, res) {
+    var title = req.params.title
+    Book.findOneAndDelete({title: title })
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
+  });
+
 
   app.put('/api/update/:title', function (req, res) {
     var title = req.params.title;
