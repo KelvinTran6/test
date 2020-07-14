@@ -70,6 +70,34 @@ module.exports = function (app) {
   });
 
 
+  app.put('/api/update/:title', function (req, res) {
+    var title = req.params.title;
+    Book.findOne({ title: title }, function (err, foundObject) {
+        if (err) {
+            console.log(err);
+            res.status(500).send();
+        } else {
+            if (!foundObject) {
+                res.status(404).send();
+            } else {
+                if (req.body.likes) {
+                    foundObject.likes = req.body.likes;
+                }
+
+                foundObject.save(function (err, updatedObject) {
+                    if (err) {
+                        console.log("error")
+                        res.status(500).send();
+                    } else {
+                        res.send(updatedObject);
+                    }
+                })
+            }
+        }
+    })
+});
+
+
 
 
 

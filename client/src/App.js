@@ -101,7 +101,7 @@ class App extends React.Component {
   clicked(){
 
     const data = {
-      title: "12125125asd125",
+      title: "12125125arertsd125",
       content: "testing content",
       url:"https://api.time.com/wp-content/uploads/2014/07/301386_full1.jpg?w=600&quality=85",
       description: "testing description"
@@ -113,9 +113,9 @@ class App extends React.Component {
     .then (res => console.log(res.data));
   }
 
-  async componentDidMount(){
+  componentDidMount(){
     this.clicked()
-
+    let setBooks
 
     $.get('/api/books')
     .then(res => {
@@ -127,8 +127,7 @@ class App extends React.Component {
         const current = <Row info={book} />
         allBooks.push(current)
       })
-
-      this.setState({ books: allBooks})
+      this.setState({books:allBooks})
     })
   }
 
