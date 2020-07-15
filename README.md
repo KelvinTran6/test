@@ -6,7 +6,7 @@
   - On the browse page users can scroll through all the books that have been posted
   - Each post displays the books title, description and picture
   - Clicking the post will expand the view giving users a small preview of the book, here the user can delete or like the post if they would like to
-  - The user can press "continue readoing" if they wish to continue reading the rest of the book
+  - The user can press "continue reading" if they wish to continue reading the rest of the book
  
 - Users can also add their own book using the Add Book page
   - On the Add book page users will be prompted to enter a title, book image url, description and the actual book content
@@ -14,7 +14,7 @@
   
   
 - The Navigation bar also features a search bar so you can search for your favorite book
-  - Unfortunately this feautre requires accurate spelling of the book title
+  - Unfortunately this feautre requires accurate spelling of the book title. It is space and case sensitive
   
   
 ### Bugs and errors
@@ -31,5 +31,5 @@
 
 
 ### Disclaimer
-- This project has only been tested using windows and chrome
+- This project has only been tested using Windows and Chrome
 - Certain features may not work outside of these conditions 
