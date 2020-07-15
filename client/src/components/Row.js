@@ -101,6 +101,9 @@ class Row extends React.Component {
         console.log("picture clicked")
     }
 
+
+
+    // swaps from like to unlike text
     swapText = () => {
         if (this.state.text == "Like") {
             this.setState({ text: "Unlike" })
@@ -111,6 +114,8 @@ class Row extends React.Component {
         }
     }
 
+
+    //delete functionality
     onClickDelete(title) {
         console.log("deleting")
 
@@ -127,6 +132,7 @@ class Row extends React.Component {
     }
 
 
+    //like functionality
     async getUpdatedLikeValue() {
         let like;
         let endpoint = "/api/"
@@ -197,14 +203,12 @@ class Row extends React.Component {
         return str.split(" ").splice(0, number).join(" ")
     }
 
+    
     setContent() {
-
         let sumarizedContent = this.props.info.content
-
         sumarizedContent = this.truncate(sumarizedContent, 200)
         sumarizedContent = sumarizedContent.concat("...")
         this.setState({ end: "Continue reading" })
-
         this.setState({ content: sumarizedContent })
     }
 

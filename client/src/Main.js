@@ -14,20 +14,6 @@ class Main extends React.Component {
     }
   }
 
-  clicked() {
-
-    const data = {
-      title: "12125125arertsd125",
-      content: "testing content",
-      url: "https://api.time.com/wp-content/uploads/2014/07/301386_full1.jpg?w=600&quality=85",
-      description: "testing description"
-    }
-
-
-    console.log("hello")
-    $.post('/api/add', data)
-      .then(res => console.log(res.data));
-  }
 
   componentDidMount() {
     $.get('/api/books')

@@ -49,21 +49,17 @@ class Create extends React.Component {
 
     changeTitle = (e) => {
         this.setState({ title: e.target.value })
-        console.log(this.state.title)
     }
     changeURL = (e) => {
         this.setState({ url: e.target.value })
-        console.log(this.state.url)
     }
 
     changeDescription = (e) => {
         this.setState({ description: e.target.value })
-        console.log(this.state.description)
     }
 
     changeContent = (e) => {
         this.setState({ content: e.target.value })
-        console.log(this.state.content)
     }
 
     submit() {

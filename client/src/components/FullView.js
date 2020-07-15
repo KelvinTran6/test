@@ -18,6 +18,8 @@ class FullView extends React.Component {
         }
     }
 
+
+    // query for the desired book
     setPage() {
         let currentComponent = this
         let endpoint = "/api/"
@@ -48,15 +50,9 @@ class FullView extends React.Component {
             });
     }
 
-
     componentDidMount() {
         this.setPage()
     }
-
-
-
-
-
     render() {
         console.log(this.props.match.params.title)
         if (this.state.found == 2) {
