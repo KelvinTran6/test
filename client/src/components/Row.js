@@ -122,7 +122,7 @@ class Row extends React.Component {
                 this.setState({ state: this.state });
                 console.log("deleted")
             })
-
+        this.props.history.push("/")
         window.location.reload(false);
     }
 
