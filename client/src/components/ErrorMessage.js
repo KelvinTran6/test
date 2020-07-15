@@ -30,7 +30,7 @@ export default function ErrorMessage() {
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
           {'Could not find the book you are searching for '}
-          {'please try again or go back to the home page to browse for books'}
+          {'Check for spelling and capitalization!'}
         </Typography>
       </Container>
     </div>

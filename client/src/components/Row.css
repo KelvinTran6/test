@@ -14,3 +14,10 @@
     padding-right: 5%;
     padding-bottom: 5%
 }
+
+.continue{
+    font-style: italic;
+    color: grey;
+    padding-top: 20px;
+    float:right
+}

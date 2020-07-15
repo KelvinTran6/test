@@ -37,7 +37,7 @@ class Main extends React.Component {
 
         books.forEach(book => {
           console.log(book)
-          const current = <Row info={book} />
+          const current = <Row info={book} shorten = {true} />
           allBooks.push(current)
         })
         this.setState({ books: allBooks })

@@ -31,15 +31,19 @@ class FullView extends React.Component {
 
                 this.setState({ data: res.data })
                 let foundBook = []
-                const currentBook = <Row info={res.data} />
+                const currentBook = <Row info={res.data} shorten = {false}/>
                 foundBook.push(currentBook)
                 this.setState({ book: foundBook })
 
                 if (res.data != null) {
                     this.setState({ found: 2 })
                 }
+                if(res.data == null){
+                    this.setState({found:3})
+                }
             })
             .catch(function (err) {
+                console.log("not found")
                 currentComponent.setState({ found: 3 })
             });
     }

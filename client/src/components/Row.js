@@ -13,6 +13,8 @@ import AccordionActions from '@material-ui/core/AccordionActions';
 import './Row.css'
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Axios from "axios";
+import { StepContent } from "@material-ui/core";
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -45,7 +47,9 @@ class Row extends React.Component {
         this.state = {
             title: "",
             likes: this.props.info.likes,
-            text: "Like"
+            text: "Like",
+            content: "",
+            end: "",
         }
     }
 
@@ -74,12 +78,30 @@ class Row extends React.Component {
                 console.log("deleted")
             })
 
-            window.location.reload(false);
+        window.location.reload(false);
     }
 
 
+    async getUpdatedLikeValue() {
+        let like;
+        let endpoint = "/api/"
+        const search = this.props.info.title
+        endpoint = endpoint.concat(search);
 
-    onClickLike = (title, like) => {
+        await Axios.get(endpoint)
+            .then(res => {
+                like = res.data.likes
+                this.setState({likes:like})
+            })
+    }
+
+
+     onClickLike = async (title) => {
+
+        await this.getUpdatedLikeValue()
+
+        let like = this.state.likes
+        console.log(like)
         let likeValue
 
         if (this.state.text == "Like") {
@@ -106,9 +128,37 @@ class Row extends React.Component {
         this.setState({ likes: likeValue })
     }
 
-    componentDidMount(){
-        console.log("mounted")
-        this.setState({likes:this.props.info.likes})
+    truncate(str, number) {
+        return str.split(" ").splice(0, number).join(" ")
+    }
+
+    setContent() {
+
+        let sumarizedContent = this.props.info.content
+
+        sumarizedContent = this.truncate(sumarizedContent, 200)
+        sumarizedContent = sumarizedContent.concat("...")
+        this.setState({ end: "Continue reading" })
+
+        this.setState({ content: sumarizedContent })
+    }
+
+    continue() {
+        let url = "/books/"
+        url = url.concat(this.props.info.title)
+        console.log(url)
+        this.props.history.push(url)
+        window.location.reload(false);
+    }
+
+    componentDidMount() {
+
+        if (this.props.shorten) {
+            this.setContent()
+        } else {
+            this.setState({ content: this.props.info.content })
+        }
+
     }
 
 
@@ -144,7 +194,7 @@ class Row extends React.Component {
                                             </Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography variant="body2" style={{ cursor: "pointer" }} onClick={(e) => this.onClickLike(this.props.info.title, this.props.info.likes)}>
+                                            <Typography variant="body2" style={{ cursor: "pointer" }} onClick={(e) => this.onClickLike(this.props.info.title)}>
                                                 {/* {this.state.text} */}
                                             </Typography>
                                         </Grid>
@@ -160,7 +210,12 @@ class Row extends React.Component {
                         <AccordionDetails className={classes.details}>
                             <div className="dropDown">
                                 <Typography>
-                                    {this.props.info.content}
+                                    {this.state.content}
+                                    <div className="continue">
+                                        <Typography variant="body2" style={{ cursor: "pointer" }} onClick={() => this.continue()}>
+                                            {this.state.end}
+                                        </Typography>
+                                    </div>
                                 </Typography>
                             </div>
                         </AccordionDetails>
@@ -170,8 +225,8 @@ class Row extends React.Component {
                                 <Typography variant="body2" style={{ cursor: "pointer" }} onClick={() => this.onClickDelete(this.props.info.title)}>
                                     Delete
                                 </Typography>
-                                </Button>
-                                <Button color ="primary">
+                            </Button>
+                            <Button color="primary">
                                 <Typography variant="body2" style={{ cursor: "pointer" }} onClick={() => this.onClickLike(this.props.info.title, this.state.likes)}>
                                     {this.state.text}
                                 </Typography>
@@ -183,23 +238,4 @@ class Row extends React.Component {
         );
     }
 }
-
-export default withStyles(styles, { withTheme: true })(Row);
-
-
-
-// import React from "react";
-// import {Typography} from "@material-ui/core";
-// import {ButtonBase} from "@material-ui/core";
-
-
-// class Row extends React.Component{
-//   render() {
-//     return (
-//       <Typography>
-//           {this.props.info.title}
-//       </Typography>
-//     );
-//   }
-// }
-// export default Row;
+export default withRouter((withStyles(styles)(Row)))

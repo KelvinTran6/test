@@ -74,14 +74,13 @@ class Create extends React.Component {
             url: this.state.url,
             description: this.state.description
         }
-        console.log("hello")
         Axios.post('/api/add', data)
             .then(function (data) {
                 alert("book added!")
                 window.location.reload(false);
             })
             .catch(function (err) {
-                
+
                 alert("there appears to be and error, perhaps the book title has already been taken")
             });
     }
@@ -154,13 +153,15 @@ class Create extends React.Component {
                                 </Grid>
                             </Grid>
                             <Button
+                                type="button"
                                 fullWidth
                                 color="primary"
+                                variant="contained"
                                 className={classes.submit}
                                 onClick={() => this.submit()}
                             >
                                 Submit
-              </Button>
+                                </Button>
                         </form>
                     </div>
                 </Container>
