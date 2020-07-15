@@ -53,16 +53,61 @@ class Row extends React.Component {
         }
     }
 
+    addToLocalStorage() {
+        const booksInStorage = localStorage.getItem("Books");
+        let currentArray = [];
+        if (booksInStorage) {
+          currentArray = JSON.parse(booksInStorage);
+          currentArray.unshift(this.props.info._id);
+          currentArray = Array.from(new Set(currentArray));
+          localStorage.setItem("Books", JSON.stringify(currentArray));
+        } else {
+          currentArray = [];
+          currentArray.unshift(this.props.info._id);
+          localStorage.setItem("Books", JSON.stringify(currentArray));
+        }
+      }
+
+      indexContainingID(currentArray,id) {
+        for (let i = 0; i < currentArray.length; i++) {
+          if (JSON.stringify(currentArray[i]).includes(id)) {
+            return i;
+          }
+        }
+        return -1;
+      }
+    
+
+
+      removeFromLocalStorage() {
+        const booksInStorage = localStorage.getItem("Books");
+        let currentArray = [];
+        if (booksInStorage) {
+          currentArray = JSON.parse(booksInStorage);
+          const index = this.indexContainingID(currentArray, this.props.info._id);
+          if (index > -1) {
+            currentArray.splice(index, 1);
+          }
+        }
+        localStorage.removeItem("Books");
+        localStorage.setItem("Books", JSON.stringify(currentArray));
+      }
+
+
+
+
+
     onClickPicture() {
         console.log("picture clicked")
     }
 
     swapText = () => {
         if (this.state.text == "Like") {
-            this.setState({ text: "unlike" })
+            this.setState({ text: "Unlike" })
         }
         else {
             this.setState({ text: "Like" })
+            this.removeFromLocalStorage()
         }
     }
 
@@ -105,6 +150,7 @@ class Row extends React.Component {
         let likeValue
 
         if (this.state.text == "Like") {
+            this.addToLocalStorage()
             likeValue = like + 1
         }
         else {
@@ -151,7 +197,21 @@ class Row extends React.Component {
         window.location.reload(false);
     }
 
+    checkIfLiked(){
+        const booksInStorage = localStorage.getItem("Books");
+        let currentArray = [];
+        if (booksInStorage) {
+          currentArray = JSON.parse(booksInStorage);
+          const index = this.indexContainingID(currentArray, this.props.info._id);
+          if (index >= 0) {
+            this.setState({text:"Unlike"})
+          }
+        }
+    }
+
     componentDidMount() {
+
+        this.checkIfLiked()
 
         if (this.props.shorten) {
             this.setContent()
