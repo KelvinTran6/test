@@ -5,8 +5,8 @@
 - This application allows users to browse through different books and like what they find interesting
   - On the browse page users can scroll through all the books that have been posted
   - Each post displays the books title, description and picture
-  - Clicking the post will expand the view giving users a small preview of the book, here the use can delete or like the post if they would like to
-  - The user can press "continue" if they wish to continue reading the rest of the book
+  - Clicking the post will expand the view giving users a small preview of the book, here the user can delete or like the post if they would like to
+  - The user can press "continue readoing" if they wish to continue reading the rest of the book
  
 - Users can also add their own book using the Add Book page
   - On the Add book page users will be prompted to enter a title, book image url, description and the actual book content
@@ -18,9 +18,14 @@
   
   
 ### Bugs and errors
-- Currently I am using the users "local storage" to keep track of posts that they have liked, this prevents them from being able to like the same post multiple times
-- Ideally I would included a sign up and sign in functionality to keep track of what the user has liked instead of using local storage, however I did not do so do to limited time
-- This local storage feature was only tested on Chrome and may not be available in other browsers
+- Liking functionality 
+  - Currently I am using the users "local storage" to keep track of posts that they have liked, this prevents them from being able to like the same post multiple times
+  - Ideally I would included a sign up and sign in functionality to keep track of what the user has liked instead of using local storage, however I did not do so do to limited time
+  - This local storage feature was only tested on Chrome and may not be available in other browsers
+- Invalid picture URL
+  - I was not able to implement a "default picture" functionality in the case of an invalid picture URL string.
+  
+
 
 
 
