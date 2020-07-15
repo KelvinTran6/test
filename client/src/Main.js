@@ -36,7 +36,6 @@ class Main extends React.Component {
         let allBooks = []
 
         books.forEach(book => {
-          console.log(book)
           const current = <Row info={book} shorten = {true} />
           allBooks.push(current)
         })

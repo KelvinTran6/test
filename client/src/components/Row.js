@@ -57,41 +57,41 @@ class Row extends React.Component {
         const booksInStorage = localStorage.getItem("Books");
         let currentArray = [];
         if (booksInStorage) {
-          currentArray = JSON.parse(booksInStorage);
-          currentArray.unshift(this.props.info._id);
-          currentArray = Array.from(new Set(currentArray));
-          localStorage.setItem("Books", JSON.stringify(currentArray));
+            currentArray = JSON.parse(booksInStorage);
+            currentArray.unshift(this.props.info._id);
+            currentArray = Array.from(new Set(currentArray));
+            localStorage.setItem("Books", JSON.stringify(currentArray));
         } else {
-          currentArray = [];
-          currentArray.unshift(this.props.info._id);
-          localStorage.setItem("Books", JSON.stringify(currentArray));
+            currentArray = [];
+            currentArray.unshift(this.props.info._id);
+            localStorage.setItem("Books", JSON.stringify(currentArray));
         }
-      }
+    }
 
-      indexContainingID(currentArray,id) {
+    indexContainingID(currentArray, id) {
         for (let i = 0; i < currentArray.length; i++) {
-          if (JSON.stringify(currentArray[i]).includes(id)) {
-            return i;
-          }
+            if (JSON.stringify(currentArray[i]).includes(id)) {
+                return i;
+            }
         }
         return -1;
-      }
-    
+    }
 
 
-      removeFromLocalStorage() {
+
+    removeFromLocalStorage() {
         const booksInStorage = localStorage.getItem("Books");
         let currentArray = [];
         if (booksInStorage) {
-          currentArray = JSON.parse(booksInStorage);
-          const index = this.indexContainingID(currentArray, this.props.info._id);
-          if (index > -1) {
-            currentArray.splice(index, 1);
-          }
+            currentArray = JSON.parse(booksInStorage);
+            const index = this.indexContainingID(currentArray, this.props.info._id);
+            if (index > -1) {
+                currentArray.splice(index, 1);
+            }
         }
         localStorage.removeItem("Books");
         localStorage.setItem("Books", JSON.stringify(currentArray));
-      }
+    }
 
 
 
@@ -136,17 +136,18 @@ class Row extends React.Component {
         await Axios.get(endpoint)
             .then(res => {
                 like = res.data.likes
-                this.setState({likes:like})
+                this.setState({ likes: like })
             })
     }
 
 
-     onClickLike = async (title) => {
+    onClickLike = async (title, like) => {
+        let input = like
 
-        await this.getUpdatedLikeValue()
+        if (like == -1) {
+            like = 0;
+        }
 
-        let like = this.state.likes
-        console.log(like)
         let likeValue
 
         if (this.state.text == "Like") {
@@ -155,6 +156,7 @@ class Row extends React.Component {
         }
         else {
             likeValue = like - 1
+            this.removeFromLocalStorage()
         }
 
         this.swapText()
@@ -163,15 +165,32 @@ class Row extends React.Component {
         let endpoint = "/api/update/"
         endpoint = endpoint.concat(title)
 
-        const data = {
+
+        console.log(likeValue)
+
+        if (likeValue == 0) {
+            console.log("zero")
+            this.setState({ likes: 0 })
+            likeValue = -1
+        }
+
+
+        const d = {
             likes: likeValue
         }
 
 
-        Axios.put(endpoint, data)
+        Axios.put(endpoint, d)
             .then(res => console.log(res.data));
 
-        this.setState({ likes: likeValue })
+
+        if (likeValue == -1) {
+            console.log("zero")
+            this.setState({ likes: 0 })
+        } else {
+            this.setState({ likes: likeValue })
+        }
+
     }
 
     truncate(str, number) {
@@ -197,21 +216,28 @@ class Row extends React.Component {
         window.location.reload(false);
     }
 
-    checkIfLiked(){
+    checkIfLiked() {
         const booksInStorage = localStorage.getItem("Books");
         let currentArray = [];
         if (booksInStorage) {
-          currentArray = JSON.parse(booksInStorage);
-          const index = this.indexContainingID(currentArray, this.props.info._id);
-          if (index >= 0) {
-            this.setState({text:"Unlike"})
-          }
+            currentArray = JSON.parse(booksInStorage);
+            const index = this.indexContainingID(currentArray, this.props.info._id);
+            if (index >= 0) {
+                this.setState({ text: "Unlike" })
+            }
         }
     }
 
     componentDidMount() {
-
+        console.log("re render")
         this.checkIfLiked()
+
+        if (this.props.info.likes == -1) {
+            this.setState({ likes: 0 });
+        }
+        else {
+            this.setState({ likes: this.props.info.likes })
+        }
 
         if (this.props.shorten) {
             this.setContent()
